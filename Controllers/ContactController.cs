@@ -7,11 +7,21 @@ namespace CyberShieldApi.Controllers
     [Route("api/[controller]")]
     public class ContactController : ControllerBase
     {
+        private readonly AppDbContext _context;
+
+        public ContactController(AppDbContext context)
+        {
+            _context = context;
+        }
+
         [HttpPost]
-        public IActionResult Send([FromBody] ContactModel data)
+        public async Task<IActionResult> Send([FromBody] ContactModel data)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
+
+            _context.Contacts.Add(data);
+            await _context.SaveChangesAsync();
 
             return Ok(new
             {
