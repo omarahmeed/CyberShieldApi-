@@ -1,0 +1,6 @@
+@CyberShieldApi_HostAddress = http://localhost:5130
+
+GET {{CyberShieldApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
